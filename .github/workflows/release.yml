@@ -1,0 +1,125 @@
+name: Release YAF.Umbraco.Forums
+
+# Releases the version in Directory.Build.props (<Version>), if there is no GitHub release "v{version}" yet:
+# builds the solution, pushes the package to NuGet.org (trusted publishing, no API key secret)
+# and creates the GitHub release with the package attached. A version with a suffix (4.0.11-alpha1)
+# is released as a pre-release.
+#
+# Runs when Directory.Build.props changes on main, or manually (Actions > Run workflow).
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Directory.Build.props
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+      should-release: ${{ steps.check-tag.outputs.should-release }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            Directory.Build.props
+          sparse-checkout-cone-mode: false
+
+      - name: Read version from Directory.Build.props
+        id: version
+        run: |
+          version=$(grep -m1 -oP '<Version>\K[^<]+' Directory.Build.props)
+          if [ -z "$version" ]; then
+            echo "Could not find <Version> in Directory.Build.props" >&2
+            exit 1
+          fi
+          echo "Found version: $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check release does not exist yet
+        id: check-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          if gh release view "v$version" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "Release v$version already exists, skipping."
+            echo "should-release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Release v$version does not exist yet, proceeding."
+            echo "should-release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check-version
+    if: needs.check-version.outputs.should-release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release
+      id-token: write # NuGet trusted publishing (OIDC)
+    env:
+      VERSION: ${{ needs.check-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '11.0.x'
+
+      # the whole solution, so a release fails if the sample site doesn't build anymore
+      - name: Build
+        run: dotnet build YAF.Umbraco.Plugins.Forums.slnx -c Release
+
+      - name: Pack
+        run: dotnet pack src/YAF.Umbraco.Forums/YAF.Umbraco.Forums.csproj -c Release --no-build -o deploy
+
+      - name: NuGet login (OIDC -> temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      # before the GitHub release: if the push fails, there is no release and the workflow can simply run again
+      - name: Push package to NuGet.org
+        run: |
+          for package in deploy/*.nupkg; do
+            echo "Pushing $package"
+            dotnet nuget push "$package" \
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          prerelease=""
+          if [ "${{ needs.check-version.outputs.prerelease }}" = "true" ]; then
+            prerelease="--prerelease"
+          fi
+          gh release create "v$VERSION" deploy/*.nupkg \
+            --repo "${{ github.repository }}" \
+            --target "${{ github.sha }}" \
+            --title "YAF.Umbraco.Forums v$VERSION" \
+            --generate-notes \
+            $prerelease

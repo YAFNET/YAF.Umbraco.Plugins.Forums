@@ -1,5 +1,7 @@
 # YAF.NET Forums for Umbraco
 
+[![NuGet](https://img.shields.io/nuget/v/YAFNET.Umbraco.Forums.svg)](https://nuget.org/packages/YAFNET.Umbraco.Forums)
+
 Runs the [YAF.NET](https://yetanotherforum.net) forum inside an Umbraco site at `/Forums`, with
 **single sign-on through Umbraco Members**: members log in once on the site and are logged in to the forum.
 

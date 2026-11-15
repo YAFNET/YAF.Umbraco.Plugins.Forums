@@ -1,0 +1,45 @@
+name: Build
+
+# Builds the solution (plugin and sample site) and packs the package, for every push to main
+# and every pull request, so Dependabot updates of Umbraco and YAF.NET are verified before merging.
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '11.0.x'
+
+      - name: Build
+        run: dotnet build YAF.Umbraco.Plugins.Forums.slnx -c Release
+
+      - name: Pack
+        run: dotnet pack src/YAFNET.Umbraco.Forums/YAFNET.Umbraco.Forums.csproj -c Release --no-build -o deploy
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-package
+          path: deploy/*.nupkg
+          retention-days: 7

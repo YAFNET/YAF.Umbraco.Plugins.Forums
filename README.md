@@ -1,7 +1,12 @@
 # YAF.NET Forums for Umbraco
 
 [![NuGet](https://img.shields.io/nuget/v/YAFNET.Umbraco.Forums.svg)](https://nuget.org/packages/YAFNET.Umbraco.Forums)
+[![NuGet downloads](https://img.shields.io/nuget/dt/YAFNET.Umbraco.Forums.svg)](https://nuget.org/packages/YAFNET.Umbraco.Forums)
+[![Build](https://img.shields.io/github/actions/workflow/status/YAFNET/YAF.Umbraco.Plugins.Forums/build.yml?branch=main&label=build)](https://github.com/YAFNET/YAF.Umbraco.Plugins.Forums/actions/workflows/build.yml)
 [![Umbraco 19](https://img.shields.io/badge/Umbraco-19-3544B1?logo=umbraco&logoColor=white)](https://umbraco.com/products/umbraco-cms/)
+[![YAF.NET 4.0.11](https://img.shields.io/badge/YAF.NET-4.0.11-0d6efd)](https://github.com/YAFNET/YAFNET)
+[![License](https://img.shields.io/github/license/YAFNET/YAF.Umbraco.Plugins.Forums)](https://github.com/YAFNET/YAF.Umbraco.Plugins.Forums/blob/main/LICENSE.md)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/w8tcha)
 
 Runs the [YAF.NET](https://yetanotherforum.net) forum inside an Umbraco site at `/Forums`, with
 **single sign-on through Umbraco Members**: members log in once on the site and are logged in to the forum.

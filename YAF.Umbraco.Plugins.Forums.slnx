@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/YAF.Umbraco.Forums.TestSite/YAF.Umbraco.Forums.TestSite.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/YAF.Umbraco.Forums/YAF.Umbraco.Forums.csproj" />
+  </Folder>
+</Solution>

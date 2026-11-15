@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+*.user
+**/umbraco/Data/
+**/umbraco/Logs/
+**/umbraco/mediacache/
+**/App_Data/
+**/wwwroot/media/
+**/Search_Data/
+**/Uploads/
+*.sqlite.db*
+yafnet.db*
+appsettings.Local.json

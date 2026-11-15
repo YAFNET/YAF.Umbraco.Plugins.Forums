@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <RootNamespace>YAF.Umbraco.Forums</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    <PackageId>YAF.Umbraco.Forums</PackageId>
+    <Title>YAF.NET Forums for Umbraco</Title>
+    <Description>Runs the YAF.NET (YetAnotherForum.NET) forum inside an Umbraco site, with single sign-on through Umbraco Members.</Description>
+    <PackageTags>umbraco umbraco-marketplace forum forums yaf yaf.net YetAnotherForum.net</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" />
+    <PackageReference Include="YAFNET.RazorPages" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="BouncyCastle.Cryptography" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Condition="Exists('..\..\README.md')" />
+  </ItemGroup>
+
+</Project>

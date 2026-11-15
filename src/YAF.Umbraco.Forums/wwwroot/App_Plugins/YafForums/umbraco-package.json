@@ -1,0 +1,25 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "YAF.NET Forums",
+  "id": "YAF.Umbraco.Forums",
+  "allowTelemetry": false,
+  "extensions": [
+    {
+      "type": "dashboard",
+      "alias": "YafForums.Dashboard",
+      "name": "YAF.NET Forums Dashboard",
+      "element": "/App_Plugins/YafForums/dashboard.js",
+      "weight": -10,
+      "meta": {
+        "label": "Forums",
+        "pathname": "yaf-forums"
+      },
+      "conditions": [
+        {
+          "alias": "Umb.Condition.SectionAlias",
+          "match": "Umb.Section.Content"
+        }
+      ]
+    }
+  ]
+}

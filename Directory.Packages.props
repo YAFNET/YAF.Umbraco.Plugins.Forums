@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
+    <!-- Must match UmbracoAppLocalIcuVersion in the test site project. -->
+    <UmbracoAppLocalIcuVersion Condition="'$(UmbracoAppLocalIcuVersion)' == ''">72.1.0.3</UmbracoAppLocalIcuVersion>
+    <UmbracoVersion>19.0.0-rc1</UmbracoVersion>
+    <YafVersion>4.0.11</YafVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Umbraco -->
+    <PackageVersion Include="Umbraco.Cms" Version="$(UmbracoVersion)" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="$(UmbracoVersion)" />
+    <PackageVersion Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="$(UmbracoVersion)" />
+    <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="$(UmbracoAppLocalIcuVersion)" />
+
+    <!-- YAF.NET -->
+    <PackageVersion Include="YAFNET.RazorPages" Version="$(YafVersion)" />
+    <PackageVersion Include="YAFNET.Core" Version="$(YafVersion)" />
+    <PackageVersion Include="YAFNET.Data.Sqlite" Version="$(YafVersion)" />
+    <PackageVersion Include="YAFNET.Data.SqlServer" Version="$(YafVersion)" />
+    <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="11.0.2" />
+    <!-- used by WebEssentials.AspNetCore.Pwa.dll inside YAFNET.Core, but not declared by the YAFNET.Core 4.0.11 package -->
+    <PackageVersion Include="BouncyCastle.Cryptography" Version="2.7.0" />
+  </ItemGroup>
+</Project>

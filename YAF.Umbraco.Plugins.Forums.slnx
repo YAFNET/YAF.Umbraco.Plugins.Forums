@@ -3,6 +3,6 @@
     <Project Path="samples/YAF.Umbraco.Forums.TestSite/YAF.Umbraco.Forums.TestSite.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/YAF.Umbraco.Forums/YAF.Umbraco.Forums.csproj" />
+    <Project Path="src/YAFNET.Umbraco.Forums/YAFNET.Umbraco.Forums.csproj" />
   </Folder>
 </Solution>

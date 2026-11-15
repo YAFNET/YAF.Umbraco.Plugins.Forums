@@ -1,7 +1,7 @@
 {
   "$schema": "../../umbraco-package-schema.json",
   "name": "YAF.NET Forums",
-  "id": "YAF.Umbraco.Forums",
+  "id": "YAFNET.Umbraco.Forums",
   "allowTelemetry": false,
   "extensions": [
     {

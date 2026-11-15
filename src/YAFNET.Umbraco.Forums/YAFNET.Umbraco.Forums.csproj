@@ -6,7 +6,7 @@
     <Nullable>disable</Nullable>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
-    <PackageId>YAF.Umbraco.Forums</PackageId>
+    <PackageId>YAFNET.Umbraco.Forums</PackageId>
     <Title>YAF.NET Forums for Umbraco</Title>
     <Description>Runs the YAF.NET (YetAnotherForum.NET) forum inside an Umbraco site, with single sign-on through Umbraco Members.</Description>
     <PackageTags>umbraco umbraco-marketplace forum forums yaf yaf.net YetAnotherForum.net</PackageTags>

@@ -28,7 +28,7 @@ Runs the [YAF.NET](https://yetanotherforum.net) forum inside an Umbraco site at 
 1. Add the packages (plus the YAF data provider you use):
 
    ```cmd
-   dotnet add package YAF.Umbraco.Forums
+   dotnet add package YAFNET.Umbraco.Forums
    dotnet add package YAFNET.Data.SqlServer   # or .Sqlite / .MySql / .PostgreSQL
    ```
 

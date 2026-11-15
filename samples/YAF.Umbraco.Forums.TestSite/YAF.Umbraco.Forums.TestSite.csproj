@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/YAF.Umbraco.Forums/YAF.Umbraco.Forums.csproj"/>
+    <ProjectReference Include="../../src/YAFNET.Umbraco.Forums/YAFNET.Umbraco.Forums.csproj"/>
   </ItemGroup>
 
   <PropertyGroup>

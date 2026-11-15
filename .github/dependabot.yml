@@ -1,0 +1,26 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  # central package management: the versions are in /Directory.Packages.props
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  groups:
+    # all Umbraco packages share $(UmbracoVersion), update them in one pull request
+    umbraco:
+      patterns:
+        - "Umbraco.Cms*"
+    # all YAF.NET packages share $(YafVersion), update them in one pull request
+    yafnet:
+      patterns:
+        - "YAFNET.*"
+  ignore:
+    # must match UmbracoAppLocalIcuVersion in the test site project, updated together with the Umbraco template
+    - dependency-name: "Microsoft.ICU.ICU4C.Runtime"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    # Check for updates to GitHub Actions every week
+    interval: "weekly"

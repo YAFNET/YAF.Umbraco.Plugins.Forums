@@ -2,6 +2,7 @@
   "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
   "Title": "YAF.NET Forums",
   "Description": "Adds the YAF.NET (YetAnotherForum.NET) forum to an Umbraco site under /Forums. Site members log in once and are logged in to the forum (single sign-on through Umbraco Members); their forum accounts are created automatically on the first visit. Includes a backoffice dashboard with links to the forum and its administration.",
+  "Category": "Campaign & Marketing",
   "PackageType": "Integration",
   "LicenseTypes": [ "Free" ],
   "AuthorDetails": {
